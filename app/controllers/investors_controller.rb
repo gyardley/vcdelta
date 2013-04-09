@@ -59,16 +59,14 @@ class InvestorsController < ApplicationController
       if json_object.nil?
         flash.now[:error] = "That didn't work - either the URL was wrong or the content wasn't valid."
         render 'load'
+      else
+        @investor = create_investor(json_object)
+        unless @investor.companies.any?
+          flash[:error] = "We're sorry - we couldn't retrieve any data from that file."
+        end
+        @partial = 'investors/edit'
+        render 'new'
       end
-
-      @investor = create_investor(json_object)
-
-      if @investor.nil?
-        flash[:error] = "We're sorry - we couldn't retrieve any data from that file."
-      end
-
-      @partial = 'investors/edit'
-      render 'new'
 
     end
 
@@ -97,9 +95,7 @@ class InvestorsController < ApplicationController
       data["events"].map { |event| company.events.new(:name => event["event"], :date => Date.strptime(event["date"], "%m/%Y")) } if data["events"]
     }
 
-    logger.info "#{investor.inspect}"
-
-    investor.valid? ? investor : nil
+    investor
   end
 
 end

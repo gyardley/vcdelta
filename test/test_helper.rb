@@ -2,6 +2,10 @@ ENV["RAILS_ENV"] = "test"
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
 require 'capybara/rails'
+require 'json_test_helper.rb'
+
+server = JsonServer.boot
+JsonServer.base = "http://"+[server.host, server.port].join(':')
 
 Capybara.default_driver = :webkit
 DatabaseCleaner.strategy = :truncation
