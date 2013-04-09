@@ -4,6 +4,6 @@ class Company < ActiveRecord::Base
   has_many :rounds
   has_many :events
 
-  accepts_nested_attributes_for :rounds, :events
+  accepts_nested_attributes_for :rounds, :events, :allow_destroy => true
 
 end

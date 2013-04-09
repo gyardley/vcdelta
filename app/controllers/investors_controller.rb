@@ -15,9 +15,9 @@ class InvestorsController < ApplicationController
 
     investor_params = params.require(:investor).permit(
       {:companies_attributes =>
-        [:name, :url,
-          {:rounds_attributes => [:name, :date]},
-          {:events_attributes => [:name, :date]}
+        [:name, :url, :_destroy,
+          {:rounds_attributes => [:name, :date, :_destroy]},
+          {:events_attributes => [:name, :date, :_destroy]}
         ]
       }
     )
