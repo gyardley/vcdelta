@@ -13,6 +13,8 @@ class InvestorsController < ApplicationController
 
   def create
 
+    @partial = 'investors/new'
+
     investor_params = params.require(:investor).permit(
       {:companies_attributes =>
         [:name, :url, :_destroy,
@@ -30,8 +32,13 @@ class InvestorsController < ApplicationController
         company.rounds = company.rounds.reject { |round| round.name.blank? }
         company.events = company.events.reject { |event| event.name.blank? }
       end
+
+      if @companies.length == 0
+        flash.now[:error] = "Sorry, but you'll have to give us a little information for this to work out."
+        render 'new'
+      end
+
     else
-      @partial = 'investors/new'
       render 'new'
     end
 
