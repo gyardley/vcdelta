@@ -1,0 +1,26 @@
+<%= render :partial => @partial %>
+<%= simple_nested_form_for @investor, :html => { :class => 'form-horizontal' } do |investor| %>
+  <h3>Your Investments</h3>
+    <%= investor.fields_for :companies do |company| %>
+      <div class="well">
+        <%= company.input :name, :label => "Investment Name", :hint => "Enter the name of the company here", :input_html => { :class => "span5"} %>
+        <%= company.link_to_remove "Remove this investment", :class => 'btn btn-danger btn-remove', :wrapper_html => { :class => "flush" } %>
+        <%= company.input :url, :label => "Website Address", :hint => "Enter the URL of the company here", :input_html => { :class => "span5"} %>
+        <%= company.fields_for :rounds do |round| %>
+          <%= round.input :name, :label => "Round", :hint => "Seed, Series A, Series B...", :input_html => { :class => "span3" } %>
+          <%= round.input :date, :label => false, :hint => "Date of Investment", start_year: Date.today.year + 1, end_year: Date.today.year - 20, discard_day: true, order: [:month, :year], :input_html => { :class => "datewidth"}, :wrapper_html => { :class => "flush" } %>
+          <%= round.link_to_remove "Remove this round", :class => 'btn btn-danger btn-remove' %>
+        <% end %>
+        <p><%= company.link_to_add "Add another round", :rounds, :class => 'btn btn-primary btn-add' %></p>
+        <hr />
+        <%= company.fields_for :events do |event| %>
+          <%= event.input :name, :label => "Event", :hint => "Acquisition, IPO, etc.", :input_html => { :class => "span3" }  %>
+          <%= event.input :date, :label => false, :hint => "Date of Event", start_year: Date.today.year + 1, end_year: Date.today.year - 20, discard_day: true, order: [:month, :year], :input_html => { :class => "datewidth"}, :wrapper_html => { :class => "flush" } %>
+          <%= event.link_to_remove "Remove this event", :class => 'btn btn-danger btn-remove' %>
+        <% end %>
+        <p><%= company.link_to_add "Add another event", :events, :class => 'btn btn-primary btn-add' %></p>
+      </div>
+  <% end %>
+  <p><%= investor.link_to_add "Add another investment", :companies, :class => 'btn btn-primary btn-large' %>
+  <%= investor.button :submit, "I'm done - create my Investments.json file!", :class => 'btn btn-primary btn-large pull-right' %></p>
+<% end %>

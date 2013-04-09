@@ -1,0 +1,15 @@
+<h3>So, yes, this is a big TODO.</h3>
+
+<p>Here I really should try and describe the format of an Investments.json file in depth. I should probably also try to iron out the kinks of the format a bit - putting a version on it in case the format changes, adding an investor name, URL, and update date in case it gets separated from its owner, etc.</p>
+<p>Then again, there's no point if people aren't going to use it, so perhaps I'll wait a bit and see.</p>
+
+<h3>Implementation notes</h3>
+
+<p>Investments.json was originally built with Ruby on Rails 4.0.0.beta1. A framework like Rails is almost certainly overkill for something as simple as this, but I wanted an excuse to try out Rails 4 before porting over anything more complex.</p>
+<p>Investments.json obviously uses Twitter Bootstrap as a UI framework. Yes, Twitter Bootstrap is overused, but I wanted to get something built quickly instead of being fancy.</p>
+<p>Investments.json is deployed on Heroku. Because it's on Heroku, it uses postgres. It really shouldn't need to use a database at all, since I'm not saving anything to a database. (That's right - as far as this tool's concerned, your investments are your business.) I wanted to use ActiveModel instead of ActiveRecord, but I've got Investor, Company, Round, and Event models and I couldn't quickly figure out how to set up the has_many / belongs_to relationships without ActiveModel. (If you know how to set up these without a database, email me - I'm curious.)</p>
+
+<h3>Things I would really like to be true before this gets released to the public</h3>
+
+<p>Investments.json has a full test suite, with tests written in test_unit and Capybara.</p>
+<p>The code for Investments.json is on GitHub. Advice on upping its quality is <strong>always</strong> welcome.</p>

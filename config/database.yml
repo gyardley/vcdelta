@@ -1,0 +1,23 @@
+development:
+  adapter: postgresql
+  encoding: unicode
+  database: investments-dev
+  pool: 5
+  username: greg
+  password:
+
+test: &test
+  adapter: postgresql
+  encoding: unicode
+  database: investments-test
+  pool: 5
+  username: greg
+  password:
+
+production:
+  adapter: postgresql
+  encoding: unicode
+  database: investments-prod
+  pool: 5
+  username: greg
+  password:

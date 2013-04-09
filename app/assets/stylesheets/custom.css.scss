@@ -1,0 +1,41 @@
+@import "bootstrap";
+
+body {
+  padding-top: 60px;
+  padding-bottom: 150px;
+}
+
+h3 {
+  font-weight: normal;
+  font-size: 24px;
+}
+
+p {
+  font-size: 16px;
+  line-height: 26px;
+}
+
+form#new_investor {
+  margin-top: 30px;
+}
+
+.control-group {
+  display: inline-block;
+  margin: 10px 0;
+}
+.flush .controls {
+  margin-left: 15px;
+}
+.datewidth {
+  @include tableColumns(1.75);
+}
+.btn-remove {
+  margin-left: 15px;
+  margin-top: -80px;
+}
+.btn-add {
+  margin-left: 180px;
+}
+label {
+  font-size: 16px;
+}
