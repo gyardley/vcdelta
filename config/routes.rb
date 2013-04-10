@@ -6,6 +6,7 @@ InvestmentsJson::Application.routes.draw do
   root to: 'static#index'
 
   get 'about' => 'static#about'
+  get 'specification' => 'static#specification'
 
   resources :investors, :only => [ :new, :create ] do
     collection do

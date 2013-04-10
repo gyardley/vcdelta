@@ -1,11 +1,13 @@
-<h3>Investments.json is a simple generator for machine-readable VC investment data.</h3>
-<p>Problem: Entrepreneurs wish to know which VCs are actively investing. VCs wish to let entrepreneurs know they're actively investing. However, our current tools for exchanging this information are inaccurate and inefficent.</p>
-<p>Investments.json is based on '<%= link_to "A Mechanism for VC Deal Transparency", "http://reactionwheel.blogspot.com/2013/04/a-mechanism-for-vc-deal-transparency.html" %>' by Jerry Neumann of <%= link_to "Neu Venture Capital", "http://neuvc.com/" %>. Jerry has proposed a standard JSON format for exchanging information about VC investments - <%= link_to "here's his example", "http://neuvc.com/portfolio.js" %>.</p>
-<p>Since writing out JSON by hand is a pain, Investments.json provides tools for entering information and generating the JSON file automatically. Investments.json also allows investors to enter the URL of an existing JSON file and then edit their investment information.</p>
-<h3>The two things you can do at Investments.json:</h3>
+<h3>VCDelta provides simple tools for generating machine-readable VC investment data.</h3>
+<p>Investors and entrepreneurs both want to share information about investment activity - it helps entrepreneurs find active investors, which benefits both parties.</p>
+<p>That said, there's no standardized mechanism for sharing this information, and all sources of data are incomplete - which means tools for fundraising entrepreneurs are both difficult to build and often inaccurate. Databases like Crunchbase are often out of date. The Twitter bot <%= link_to "@VCDelta", "http://twitter.com/vcdelta/" %> scrapes venture capital websites and publicizes portfolio changes, but the tool is fragile and not all sites can be effectively scraped.</p>
+<p>We have a proposal - a standardized 'investments.json' format for investors, easily readable by machines but easily createable by humans.  While the investments.json format has not been finalized, it's based on '<%= link_to "A Mechanism for VC Deal Transparency", "http://reactionwheel.blogspot.com/2013/04/a-mechanism-for-vc-deal-transparency.html" %>' by Jerry Neumann of <%= link_to "Neu Venture Capital", "http://neuvc.com/" %>. These machine-readable Javascript files would be hosted on investors' websites in a standardized location, easily discoverable by bots. Investors would be responsible for updating and hosting their own investments.json files.</p>
+<p>Writing machine-readable Javascript can be trying at times, and a single out-of-place punctuation mark can render the whole file useless. Because of this, we're providing some web-based tools to make investments.json files a lot easier to create and maintain.</p>
+<h3>Next steps:</h3>
 <div class="row">
   <div class="span6 offset3">
+    <p><%= link_to "Read the Investments.json specification", specification_path, { :class => "btn btn-primary btn-large btn-block"} %></p>
     <p><%= link_to "Create a new Investments.json file", new_investor_path, { :class => "btn btn-primary btn-large btn-block"} %></p>
-    <p><%= link_to "Load an existing Investments.json file", load_investors_path, { :class => "btn btn-primary btn-large btn-block"} %></p>
+    <p><%= link_to "Load and edit an existing Investments.json file", load_investors_path, { :class => "btn btn-primary btn-large btn-block"} %></p>
   </div>
 </div>

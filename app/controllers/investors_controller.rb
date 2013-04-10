@@ -4,12 +4,14 @@ require "uri"
 class InvestorsController < ApplicationController
 
   def new
+
     @investor = Investor.new
     @company = @investor.companies.new
     @company.rounds.new
     @company.events.new
     @partial = 'investors/new'
-  end
+
+  end # new
 
   def create
 
@@ -26,26 +28,20 @@ class InvestorsController < ApplicationController
 
     @investor = Investor.new(investor_params)
 
-    if @investor.valid?
-      @companies = @investor.companies.reject { |company| company.name.blank? }
-      @companies.each do |company|
-        company.rounds = company.rounds.reject { |round| round.name.blank? }
-        company.events = company.events.reject { |event| event.name.blank? }
-      end
+    @companies = @investor.companies.reject { |company| company.name.blank? }
+    @companies.each do |company|
+      company.rounds = company.rounds.reject { |round| round.name.blank? }
+      company.events = company.events.reject { |event| event.name.blank? }
+    end
 
-      if @companies.length == 0
-        flash.now[:error] = "Sorry, but you'll have to give us a little information for this to work out."
-        render 'new'
-      end
-
-    else
+    if @companies.length == 0
+      flash.now[:error] = "Sorry, but you'll have to give us a little information for this to work out."
       render 'new'
     end
 
-  end
+  end # create
 
   def load
-
   end
 
   def parse
@@ -70,18 +66,18 @@ class InvestorsController < ApplicationController
 
     end
 
-  end
+  end # parse
 
   protected
 
-  # ghetto error handling - if it's nil something went wrong and at the moment I don't care what
+  # ghetto error handling - if it's nil something went wrong and I don't much care what
   def json_file_pull(url)
     begin
       JSON.parse HTTParty.get(url).response.body
     rescue
       nil
     end
-  end
+  end # json_file_pull
 
   # takes the json object and makes an investor out of it
   def create_investor(json_object)
@@ -96,6 +92,6 @@ class InvestorsController < ApplicationController
     }
 
     investor
-  end
+  end # create_investor
 
 end

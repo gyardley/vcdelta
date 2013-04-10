@@ -6,7 +6,7 @@ class EditFileTest < ActionDispatch::IntegrationTest
 
     visit root_path
 
-    assert page.has_link?("Load an existing Investments.json file")
+    assert page.has_link?("Load and edit an existing Investments.json file")
     assert page.has_link?("Create a new Investments.json file")
 
     click_link "Load an existing Investments.json file"

@@ -1,7 +1,5 @@
 require 'test_helper'
 
-# really could use some serious DRYing out
-
 class CreateFileTest < ActionDispatch::IntegrationTest
 
   test "create a one-entry investments.json file" do
