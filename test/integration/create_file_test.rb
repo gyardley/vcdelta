@@ -2,16 +2,16 @@ require 'test_helper'
 
 class CreateFileTest < ActionDispatch::IntegrationTest
 
-  test "create a one-entry investments.json file" do
+  test "create a one-entry Investments.js file" do
 
     visit root_path
 
-    assert page.has_link?("Load an existing Investments.json file")
-    assert page.has_link?("Create a new Investments.json file")
+    assert page.has_link?("Edit an existing Investments.js file")
+    assert page.has_link?("Create a new Investments.js file")
 
-    click_link "Create a new Investments.json file"
+    click_link "Create a new Investments.js file"
 
-    assert page.has_button?("I'm done - create my Investments.json file!")
+    assert page.has_button?("I'm done - create my Investments.js file!")
 
     fill_in('investor[companies_attributes][0][name]', :with => 'Dummy Corp')
     fill_in('investor[companies_attributes][0][url]', :with => 'http://dummy.com/')
@@ -20,9 +20,9 @@ class CreateFileTest < ActionDispatch::IntegrationTest
     select('January', :from => 'investor[companies_attributes][0][rounds_attributes][0][date(2i)]')
     select('2010', :from => 'investor[companies_attributes][0][rounds_attributes][0][date(1i)]')
 
-    click_button "I'm done - create my Investments.json file!"
+    click_button "I'm done - create my Investments.js file!"
 
-    assert page.has_content?("Your Investments.json file is ready!")
+    assert page.has_content?("Your Investments.js file is ready!")
     assert page.has_content?("Dummy Corp")
     assert page.has_content?("http://dummy.com/")
     assert page.has_content?("Seed")
@@ -33,7 +33,7 @@ class CreateFileTest < ActionDispatch::IntegrationTest
 
   end
 
-  test "create a one-entry investments.json file with two rounds, two events" do
+  test "create a one-entry Investments.js file with two rounds, two events" do
 
     visit new_investor_path
 
@@ -51,7 +51,7 @@ class CreateFileTest < ActionDispatch::IntegrationTest
     page.find(:xpath, "(//div[contains(concat(' ', @class, ' '), ' investor_companies_rounds_name ')])[last()]/div/input").set("Series A")
     page.find(:xpath, "(//div[contains(concat(' ', @class, ' '), ' investor_companies_events_name ')])[last()]/div/input").set("IPO")
 
-    click_button "I'm done - create my Investments.json file!"
+    click_button "I'm done - create my Investments.js file!"
 
     assert page.has_content?("Dummy Corp")
     assert page.has_content?("http://dummy.com/")
@@ -65,7 +65,7 @@ class CreateFileTest < ActionDispatch::IntegrationTest
 
   end
 
-  test "create a one-entry investments.json file with one blank round & one blank event" do
+  test "create a one-entry Investments.js file with one blank round & one blank event" do
 
     visit new_investor_path
 
@@ -82,7 +82,7 @@ class CreateFileTest < ActionDispatch::IntegrationTest
 
     page.find(:xpath, "(//div[contains(concat(' ', @class, ' '), ' investor_companies_rounds_name ')])[last()]/div/input").set("Series A")
 
-    click_button "I'm done - create my Investments.json file!"
+    click_button "I'm done - create my Investments.js file!"
 
     results = JSON::parse(page.find(".well").text)
 
@@ -92,7 +92,7 @@ class CreateFileTest < ActionDispatch::IntegrationTest
 
   end
 
-  test "create a two-entry investments.json file" do
+  test "create a two-entry Investments.js file" do
 
     visit new_investor_path
 
@@ -108,7 +108,7 @@ class CreateFileTest < ActionDispatch::IntegrationTest
     # we'll fill in the name but leave the rest of the fields blank in order to test that too
     page.find(:xpath, "(//div[contains(concat(' ', @class, ' '), ' investor_companies_name ')])[last()]/div/input").set("Wonder Corp")
 
-    click_button "I'm done - create my Investments.json file!"
+    click_button "I'm done - create my Investments.js file!"
 
     assert page.has_content?("Dummy Corp")
     assert page.has_content?("Wonder Corp")
@@ -122,7 +122,7 @@ class CreateFileTest < ActionDispatch::IntegrationTest
 
   end
 
-  test "create a two-entry investments.json file with blank second investment name" do
+  test "create a two-entry Investments.js file with blank second investment name" do
 
     visit new_investor_path
 
@@ -142,7 +142,7 @@ class CreateFileTest < ActionDispatch::IntegrationTest
     page.find(:xpath, "(//div[contains(concat(' ', @class, ' '), ' investor_companies_rounds_name ')])[last()]/div/input").set("Series A")
     page.find(:xpath, "(//div[contains(concat(' ', @class, ' '), ' investor_companies_events_name ')])[last()]/div/input").set("IPO")
 
-    click_button "I'm done - create my Investments.json file!"
+    click_button "I'm done - create my Investments.js file!"
 
     assert page.has_content?("Dummy Corp")
     assert page.has_no_content?("Series A")
@@ -159,10 +159,10 @@ class CreateFileTest < ActionDispatch::IntegrationTest
 
     visit new_investor_path
 
-    click_button "I'm done - create my Investments.json file!"
+    click_button "I'm done - create my Investments.js file!"
 
-    assert page.has_button?("I'm done - create my Investments.json file!")
-    assert page.has_no_content?("Your Investments.json file is ready!")
+    assert page.has_button?("I'm done - create my Investments.js file!")
+    assert page.has_no_content?("Your Investments.js file is ready!")
     assert page.has_content?("Sorry, but you'll have to give us a little information for this to work out.")
 
   end

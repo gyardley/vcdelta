@@ -1,4 +1,5 @@
 @import "bootstrap";
+@import "bootstrap-responsive";
 
 body {
   padding-top: 60px;
@@ -38,4 +39,13 @@ form#new_investor {
 }
 label {
   font-size: 16px;
+}
+.title {
+  text-align: center;
+}
+.main {
+  border-right: 1px solid #999;
+  padding-right: 20px;}
+.actions {
+
 }

@@ -1,3 +1,112 @@
-<h3>Why hello, Captain Placeholder</h3>
-<p>Yes, we need to write a specification.</p>
-<p>We should probably also try to iron out the kinks of the format a bit - putting a version on it in case the format changes, adding an investor name, URL, and update date in case it gets separated from its owner, etc.</p>
+<h3>Investment.js Specification - version 1.0.0</h3>
+
+<p>Each investment.js file has the following fields.</p>
+
+<p><code>"name":"investment.js"</code>. Required. This identifies the document as an investment.js file.</p>
+
+<p><code>"version"</code>: the investment.js spec version number. Required. The current version of investment.js is '1.0.0'.</p>
+
+<p><code>"investor"</code>: the name of the investing individual or firm. Required. Handy, should the file be found apart from its context on the investor's website.</p>
+
+<p><code>"url"</code>: a URL belonging to the investing individual or firm. Optional. Also handy for context.</p>
+
+<p><code>"updated"</code>: a string containing the date the file was last updated, in the format 'DD/MM/YYYY'. (If you're using strftime, '%d/%m/%Y'.) Optional, but also handy for context.</p>
+
+<p>"investments": an array of Investment objects. Optional, but there's really not much point in this exercise without including some of these.</p>
+
+<h3>The Investment Object</h3>
+
+<p>Each Investment object in the investment.js file has the following fields.</p>
+
+<p><code>"company"</code>: the name of the company receiving the investment. Required.</p>
+
+<p><code>"url"</code>: a URL belonging to the company receiving the investment. Optional.</p>
+
+<p><code>"rounds"</code>: an array of Round objects, representing your investments in the company. Optional, but again, this is the point.</p>
+
+<p><code>"events"</code>: an array of Event objects, representing significant events that have happened to the company. We're thinking these will likely be exits. Optional.</p>
+
+<h3>The Round Object</h3>
+
+<p>Each Round object in the investment.js file has the following fields.</p>
+
+<p><code>"series"</code>: the name of the investment series - 'Seed', 'A', 'B', what-have-you. Required.</p>
+
+<p><code>"date"</code>: a string containing the month and year the investment was made, in the format 'MM/YYYY'. (If you're using strftime, '%m/%Y'.) Required.</p>
+
+<h3>The Event Object</h3>
+
+<p>Each Event object in the investment.js file has the following fields.</p>
+
+<p><code>"event"</code>: a string describing what happened. 'Sold to Google.' 'IPO.' Required, and may all your investments eventually have something good to put here.</p>
+
+<p><code>"date"</code>: a string containing the month and year the event happened, in the format 'MM/YYYY'. (If you're using strftime, '%m/%Y'.) Required.</p>
+
+<h3>Minimal investment.js example:</h3>
+
+<p>This investment.js file consists of an investor who has participated in a single investment round in a single company.</p>
+<pre>
+{
+  "name":"investment.js",
+  "version":"1.0.0",
+  "investor":"Warren Buffet",
+  "url":"http://example.com",
+  "updated":"09/04/2013",
+  "investments":[
+    {
+      "company":"Awesome Corp",
+      "url":"http://example.com",
+      "rounds":[
+        {
+          "series":"Seed",
+          "date":"03/2013"
+        }
+      ]
+    }
+  ]
+}
+</pre>
+<h3>Larger investment.js example:</h3>
+
+<p>This investment.js file consists of an investor who has participated in multiple rounds across multiple companies, and has recorded an exit.</p>
+<pre>
+{
+  "name":"investment.js",
+  "version":"1.0.0",
+  "investor":"George Soros",
+  "url":"http://example.com",
+  "updated":"09/04/2013",
+  "investments":[
+    {
+      "company":"Programming Corp",
+      "url":"http://example.com",
+      "rounds":[
+        {
+          "series":"Seed",
+          "date":"01/2011"
+        },
+        {
+          "series":"A",
+          "date":"03/2012"
+        }
+      ],
+      "events":[
+        {
+          "event":"Sold to Google",
+          "date":"02/2013"
+        }
+      ]
+    },
+    {
+      "company":"Incredible Corp",
+      "url":"http://example.com",
+      "rounds":[
+        {
+          "series":"Seed",
+          "date":"12/2012"
+        }
+      ]
+    }
+  ]
+}
+</pre>

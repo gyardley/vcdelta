@@ -6,10 +6,10 @@ class EditFileTest < ActionDispatch::IntegrationTest
 
     visit root_path
 
-    assert page.has_link?("Load and edit an existing Investments.json file")
-    assert page.has_link?("Create a new Investments.json file")
+    assert page.has_link?("Edit an existing Investments.js file")
+    assert page.has_link?("Create a new Investments.js file")
 
-    click_link "Load an existing Investments.json file"
+    click_link "Edit an existing Investments.js file"
 
     assert page.has_button?("Fetch my Investments.js file")
 
@@ -31,7 +31,7 @@ class EditFileTest < ActionDispatch::IntegrationTest
     click_button "Fetch my Investments.js file"
 
     assert page.has_content?("We're sorry - we couldn't retrieve any data from that file.")
-    assert page.has_content?("Edit your Investments.json file")
+    assert page.has_content?("Edit your Investments.js file")
 
   end
 
@@ -43,7 +43,7 @@ class EditFileTest < ActionDispatch::IntegrationTest
 
     click_button "Fetch my Investments.js file"
 
-    assert page.has_content?("Edit your Investments.json file")
+    assert page.has_content?("Edit your Investments.js file")
     # make sure the form fields are properly filled in
     assert page.has_xpath?("//input[@value='Dummy Corp.']")
     assert page.has_xpath?("//input[@value='http://www.dummy.com']")
@@ -67,14 +67,14 @@ class EditFileTest < ActionDispatch::IntegrationTest
 
     click_button "Fetch my Investments.js file"
 
-    assert page.has_content?("Edit your Investments.json file")
+    assert page.has_content?("Edit your Investments.js file")
 
     # click on the round and event links for the new investment
     page.find(:xpath, "(//a[text()='Remove this investment'])[last()]").click
     page.find(:xpath, "(//a[text()='Remove this event'])[last()]").click
     page.find(:xpath, "(//a[text()='Remove this round'])[last()]").click
 
-    click_button "I'm done - create my Investments.json file!"
+    click_button "I'm done - create my Investments.js file!"
 
     assert page.has_content?("Dummy Corp")
     assert page.has_no_content?("Wonder Corp")
@@ -96,14 +96,14 @@ class EditFileTest < ActionDispatch::IntegrationTest
 
     click_button "Fetch my Investments.js file"
 
-    assert page.has_content?("Edit your Investments.json file")
+    assert page.has_content?("Edit your Investments.js file")
 
     assert page.has_xpath?("//input[@value='Dummy Corp.']")
     assert page.has_xpath?("//input[@value='http://www.dummy.com']")
     assert page.has_xpath?("//input[@value='Seed']")
     assert page.has_xpath?("//input[@value='Sale']")
 
-    click_button "I'm done - create my Investments.json file!"
+    click_button "I'm done - create my Investments.js file!"
 
     assert page.has_content?("Dummy Corp")
     assert page.has_no_content?("123 Test Lane")

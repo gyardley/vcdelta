@@ -1,10 +1,9 @@
-<h3>Implementation notes</h3>
+<h3>VCDelta.org implementation notes</h3>
 
-<p>VCDelta.org was originally built with Ruby on Rails 4.0.0.beta1. A framework like Rails is almost certainly overkill for something as simple as this, but I wanted an excuse to try out Rails 4 before porting over anything more complex.</p>
-<p>VCDelta.org obviously uses Twitter Bootstrap as a UI framework. Yes, Twitter Bootstrap is overused, but I wanted to get something built quickly instead of being fancy.</p>
-<p>VCDelta.org is deployed on Heroku. Because it's on Heroku, it uses postgres. It really shouldn't need to use a database at all, since I'm not saving anything to a database. (That's right - as far as this tool's concerned, your investments are your business.) I wanted to use ActiveModel instead of ActiveRecord, but I've got Investor, Company, Round, and Event models and I couldn't quickly figure out how to set up the has_many / belongs_to relationships without ActiveModel. (If you know how to set up these without a database, email me - I'm curious.)</p>
-<p>VCDelta.org has a full test suite, with tests written in test_unit and Capybara.</p>
+<p>VCDelta.org was built with love in the beautiful Texas Hill Country with Rails 4 and Twitter Bootstrap, and it lives over on Heroku. It's particularly dependent on the <%= link_to "nested_form gem", "https://github.com/ryanb/nested_form" %>, for which I am grateful.</p>
 
-<h3>Things I would really like to be true before this gets released to the public</h3>
+<p>The source code for VCDelta.org will be placed on GitHub shortly, and linked to from here. Suggestions for improving the quality of VCDelta are <strong>always</strong> welcome.</p>
 
-<p>The code for VCDelta.org is on GitHub. Advice on upping its quality is <strong>always</strong> welcome.</p>
+<p>Note that I had nothing to do with the implementation of the <%= link_to "@VCDelta", "http://twitter.com/vcdelta" %> Twitter bot. That one's all Jerry.</p>
+
+<p><em>- Greg Yardley</em></p>
