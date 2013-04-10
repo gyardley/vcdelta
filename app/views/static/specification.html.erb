@@ -1,10 +1,10 @@
-<h3>Investment.js Specification - version 1.0.0</h3>
+<h3>Investments.js Specification - version 1.0.0</h3>
 
-<p>Each investment.js file has the following fields.</p>
+<p>Each investments.js file has the following fields.</p>
 
-<p><code>"name":"investment.js"</code>. Required. This identifies the document as an investment.js file.</p>
+<p><code>"name":"investments.js"</code>. Required. This identifies the document as an investments.js file.</p>
 
-<p><code>"version"</code>: the investment.js spec version number. Required. The current version of investment.js is '1.0.0'.</p>
+<p><code>"version"</code>: the Investments.js spec version number. Required. The current version of investments.js is '1.0.0'.</p>
 
 <p><code>"investor"</code>: the name of the investing individual or firm. Required. Handy, should the file be found apart from its context on the investor's website.</p>
 
@@ -12,11 +12,11 @@
 
 <p><code>"updated"</code>: a string containing the date the file was last updated, in the format 'DD/MM/YYYY'. (If you're using strftime, '%d/%m/%Y'.) Optional, but also handy for context.</p>
 
-<p>"investments": an array of Investment objects. Optional, but there's really not much point in this exercise without including some of these.</p>
+<p><code>"investments"</code>: an array of Investment objects. Optional, but there's really not much point in this exercise without including some of these.</p>
 
 <h3>The Investment Object</h3>
 
-<p>Each Investment object in the investment.js file has the following fields.</p>
+<p>Each Investment object in the investments.js file has the following fields.</p>
 
 <p><code>"company"</code>: the name of the company receiving the investment. Required.</p>
 
@@ -28,7 +28,7 @@
 
 <h3>The Round Object</h3>
 
-<p>Each Round object in the investment.js file has the following fields.</p>
+<p>Each Round object in the investments.js file has the following fields.</p>
 
 <p><code>"series"</code>: the name of the investment series - 'Seed', 'A', 'B', what-have-you. Required.</p>
 
@@ -36,18 +36,18 @@
 
 <h3>The Event Object</h3>
 
-<p>Each Event object in the investment.js file has the following fields.</p>
+<p>Each Event object in the investments.js file has the following fields.</p>
 
 <p><code>"event"</code>: a string describing what happened. 'Sold to Google.' 'IPO.' Required, and may all your investments eventually have something good to put here.</p>
 
 <p><code>"date"</code>: a string containing the month and year the event happened, in the format 'MM/YYYY'. (If you're using strftime, '%m/%Y'.) Required.</p>
 
-<h3>Minimal investment.js example:</h3>
+<h3>Minimal Investments.js example:</h3>
 
-<p>This investment.js file consists of an investor who has participated in a single investment round in a single company.</p>
+<p>This investments.js file consists of an investor who has participated in a single investment round in a single company.</p>
 <pre>
 {
-  "name":"investment.js",
+  "name":"Investments.js",
   "version":"1.0.0",
   "investor":"Warren Buffet",
   "url":"http://example.com",
@@ -66,12 +66,12 @@
   ]
 }
 </pre>
-<h3>Larger investment.js example:</h3>
+<h3>Larger Investments.js example:</h3>
 
-<p>This investment.js file consists of an investor who has participated in multiple rounds across multiple companies, and has recorded an exit.</p>
+<p>This investments.js file consists of an investor who has participated in multiple rounds across multiple companies, and has recorded an exit.</p>
 <pre>
 {
-  "name":"investment.js",
+  "name":"Investments.js",
   "version":"1.0.0",
   "investor":"George Soros",
   "url":"http://example.com",
