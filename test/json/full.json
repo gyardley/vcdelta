@@ -1,1 +1,1 @@
-[{"company":"Dummy Corp","url":"http://www.dummy.com","rounds":[{"Series":"Seed","date":"04/2010"}],"events":[{"event":"Sale","date":"04/2012"}]},{"company":"Wonder Corp."}]
+{"name":"investments.js","version":"1.0.0","investor":"Warren Buffet","url":"http://www.buffet.com","updated":"10/04/2013","investments":[{"company":"Dummy Corp","url":"http://www.dummy.com","rounds":[{"series":"Seed","date":"04/2010"}],"events":[{"event":"Sale","date":"04/2012"}]},{"company":"Wonder Corp."}]}

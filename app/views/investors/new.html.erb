@@ -1,5 +1,10 @@
 <%= render :partial => @partial %>
 <%= simple_nested_form_for @investor, :html => { :class => 'form-horizontal' } do |investor| %>
+  <h3>Your Information</h3>
+    <div class="well">
+      <%= investor.input :investor, :label => "Investor Name", :hint => "Enter your name or the name of your firm", :input_html => { :class => "span5"} %>
+      <%= investor.input :url, :label => "Your Website", :hint => "Provide a URL for your website", :input_html => { :class => "span5"} %>
+    </div>
   <h3>Your Investments</h3>
     <%= investor.fields_for :companies do |company| %>
       <div class="well">

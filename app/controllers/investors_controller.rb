@@ -18,6 +18,8 @@ class InvestorsController < ApplicationController
     @partial = 'investors/new'
 
     investor_params = params.require(:investor).permit(
+      :investor,
+      :url,
       {:companies_attributes =>
         [:name, :url, :_destroy,
           {:rounds_attributes => [:name, :date, :_destroy]},
@@ -28,14 +30,24 @@ class InvestorsController < ApplicationController
 
     @investor = Investor.new(investor_params)
 
-    @companies = @investor.companies.reject { |company| company.name.blank? }
-    @companies.each do |company|
-      company.rounds = company.rounds.reject { |round| round.name.blank? }
-      company.events = company.events.reject { |event| event.name.blank? }
-    end
+    if @investor.valid?
 
-    if @companies.length == 0
-      flash.now[:error] = "Sorry, but you'll have to give us a little information for this to work out."
+      @investor.version = '1.0.0'
+      @investor.updated = Time.now
+
+      @companies = @investor.companies.reject { |company| company.name.blank? }
+      @companies.each do |company|
+        company.rounds = company.rounds.reject { |round| round.name.blank? }
+        company.events = company.events.reject { |event| event.name.blank? }
+      end
+
+      if @companies.length == 0
+        flash.now[:error] = "You'll have to give us a little information about your investments for this to work." # change?
+        render 'new'
+      end
+
+    else # validation errors
+      flash.now[:error] = "Whoops. Please correct the highlighted errors first."
       render 'new'
     end
 
@@ -81,6 +93,18 @@ class InvestorsController < ApplicationController
 
   # takes the json object and makes an investor out of it
   def create_investor(json_object)
+
+    if json_object.include?("name") && json_object["name"] == "investments.js" && json_object.include?("version") && json_object["version"] == "1.0.0"
+      format_1_0_0(json_object)
+    else
+      format_0(json_object)
+    end
+
+  end # create_investor
+
+  # for dealing with Jerry's original file format without API version
+  def format_0(json_object)
+
     investor = Investor.new
 
     companies = json_object.reject { |item| !item.include?("company") }
@@ -92,6 +116,26 @@ class InvestorsController < ApplicationController
     }
 
     investor
-  end # create_investor
+
+  end
+
+  # for the 1.0.0 specification.
+  def format_1_0_0(json_object)
+
+    investor = Investor.new
+    investor.investor = json_object["investor"]
+    investor.url = json_object["url"] if json_object["url"]
+
+    companies = json_object["investments"].reject { |item| !item.include?("company") }
+
+    companies.map { |data|
+      company = investor.companies.new(:name => data["company"], :url => data["url"])
+      data["rounds"].map { |round| company.rounds.new(:name => round["series"], :date => Date.strptime(round["date"], "%m/%Y")) } if data["rounds"]
+      data["events"].map { |event| company.events.new(:name => event["event"], :date => Date.strptime(event["date"], "%m/%Y")) } if data["events"]
+    }
+
+    investor
+
+  end
 
 end

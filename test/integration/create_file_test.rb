@@ -13,6 +13,8 @@ class CreateFileTest < ActionDispatch::IntegrationTest
 
     assert page.has_button?("I'm done - create my Investments.js file!")
 
+    fill_in('investor[investor]', :with => 'Warren Buffet')
+    fill_in('investor[url]', :with => 'http://buffet.com/')
     fill_in('investor[companies_attributes][0][name]', :with => 'Dummy Corp')
     fill_in('investor[companies_attributes][0][url]', :with => 'http://dummy.com/')
     fill_in('investor[companies_attributes][0][rounds_attributes][0][name]', :with => 'Seed')
@@ -23,6 +25,8 @@ class CreateFileTest < ActionDispatch::IntegrationTest
     click_button "I'm done - create my Investments.js file!"
 
     assert page.has_content?("Your Investments.js file is ready!")
+    assert page.has_content?("Warren Buffet")
+    assert page.has_content?("http://buffet.com/")
     assert page.has_content?("Dummy Corp")
     assert page.has_content?("http://dummy.com/")
     assert page.has_content?("Seed")
@@ -40,6 +44,7 @@ class CreateFileTest < ActionDispatch::IntegrationTest
     click_link "Add another round"
     click_link "Add another event"
 
+    fill_in('investor[investor]', :with => 'Warren Buffet')
     fill_in('investor[companies_attributes][0][name]', :with => 'Dummy Corp')
     fill_in('investor[companies_attributes][0][url]', :with => 'http://dummy.com/')
     fill_in('investor[companies_attributes][0][rounds_attributes][0][name]', :with => 'Seed')
@@ -72,6 +77,7 @@ class CreateFileTest < ActionDispatch::IntegrationTest
     click_link "Add another round"
     click_link "Add another event"
 
+    fill_in('investor[investor]', :with => 'Warren Buffet')
     fill_in('investor[companies_attributes][0][name]', :with => 'Dummy Corp')
     fill_in('investor[companies_attributes][0][url]', :with => 'http://dummy.com/')
     # setting the first round to whitespace, will just leave second event blank
@@ -87,8 +93,8 @@ class CreateFileTest < ActionDispatch::IntegrationTest
     results = JSON::parse(page.find(".well").text)
 
     assert results
-    assert_equal results[0]["rounds"].length, 1
-    assert_equal results[0]["events"].length, 1
+    assert_equal results["investments"][0]["rounds"].length, 1
+    assert_equal results["investments"][0]["events"].length, 1
 
   end
 
@@ -98,6 +104,7 @@ class CreateFileTest < ActionDispatch::IntegrationTest
 
     click_link "Add another investment"
 
+    fill_in('investor[investor]', :with => 'Warren Buffet')
     fill_in('investor[companies_attributes][0][name]', :with => 'Dummy Corp')
     fill_in('investor[companies_attributes][0][url]', :with => 'http://dummy.com/')
     fill_in('investor[companies_attributes][0][rounds_attributes][0][name]', :with => 'Seed')
@@ -116,9 +123,9 @@ class CreateFileTest < ActionDispatch::IntegrationTest
     results = JSON::parse(page.find(".well").text)
 
     assert results
-    assert_equal results.length, 2
-    assert !results[1].has_key?("rounds")
-    assert !results[1].has_key?("events")
+    assert_equal results["investments"].length, 2
+    assert !results["investments"][1].has_key?("rounds")
+    assert !results["investments"][1].has_key?("events")
 
   end
 
@@ -128,6 +135,7 @@ class CreateFileTest < ActionDispatch::IntegrationTest
 
     click_link "Add another investment"
 
+    fill_in('investor[investor]', :with => 'Warren Buffet')
     fill_in('investor[companies_attributes][0][name]', :with => 'Dummy Corp')
     fill_in('investor[companies_attributes][0][url]', :with => 'http://dummy.com/')
     fill_in('investor[companies_attributes][0][rounds_attributes][0][name]', :with => 'Seed')
@@ -151,19 +159,37 @@ class CreateFileTest < ActionDispatch::IntegrationTest
     results = JSON::parse(page.find(".well").text)
 
     assert results
-    assert_equal results.length, 1
+    assert_equal results["investments"].length, 1
 
   end
 
-  test "submit a blank form, get an error" do
+  test "submit a form without an investor name, get an error" do
 
     visit new_investor_path
+
+    fill_in('investor[companies_attributes][0][name]', :with => 'Dummy Corp')
+    fill_in('investor[companies_attributes][0][url]', :with => 'http://dummy.com/')
 
     click_button "I'm done - create my Investments.js file!"
 
     assert page.has_button?("I'm done - create my Investments.js file!")
     assert page.has_no_content?("Your Investments.js file is ready!")
-    assert page.has_content?("Sorry, but you'll have to give us a little information for this to work out.")
+    assert page.has_content?("Whoops. Please correct the highlighted errors first.")
+    assert page.has_selector?('.investor_investor.error')
+
+  end
+
+  test "submit a form without any companies, get an error" do
+
+    visit new_investor_path
+
+    fill_in('investor[investor]', :with => 'Warren Buffet')
+
+    click_button "I'm done - create my Investments.js file!"
+
+    assert page.has_button?("I'm done - create my Investments.js file!")
+    assert page.has_no_content?("Your Investments.js file is ready!")
+    assert page.has_content?("You'll have to give us a little information about your investments for this to work.")
 
   end
 

@@ -45,6 +45,7 @@ class EditFileTest < ActionDispatch::IntegrationTest
 
     assert page.has_content?("Edit your Investments.js file")
     # make sure the form fields are properly filled in
+    assert page.has_xpath?("//input[@value='Warren Buffet']")
     assert page.has_xpath?("//input[@value='Dummy Corp.']")
     assert page.has_xpath?("//input[@value='http://www.dummy.com']")
     assert page.has_xpath?("//input[@value='Seed']")
@@ -84,7 +85,7 @@ class EditFileTest < ActionDispatch::IntegrationTest
     results = JSON::parse(page.find(".well").text)
 
     assert results
-    assert_equal results.length, 1
+    assert_equal results["investments"].length, 1
 
   end
 
@@ -109,6 +110,38 @@ class EditFileTest < ActionDispatch::IntegrationTest
     assert page.has_no_content?("123 Test Lane")
     assert page.has_no_content?("Joe")
     assert page.has_no_content?("CEO")
+
+    assert JSON::parse(page.find(".well").text)
+
+  end
+
+  test "load an old-format JSON file, add investor name, should work" do
+
+    visit load_investors_path
+
+    fill_in('investment[url]', :with => JsonServer.base+'/json/old')
+
+    click_button "Fetch my Investments.js file"
+
+    assert page.has_content?("Edit your Investments.js file")
+    # make sure the form fields are properly filled in
+    assert page.has_xpath?("//input[@value='Dummy Corp.']")
+    assert page.has_xpath?("//input[@value='http://www.dummy.com']")
+    assert page.has_xpath?("//input[@value='Seed']")
+    assert page.has_xpath?("//input[@value='Sale']")
+
+    fill_in('investor[investor]', :with => "Warren Buffet")
+    fill_in('investor[url]', :with => "http://buffet.com/")
+
+    click_button "I'm done - create my Investments.js file!"
+
+    assert page.has_content?("Your Investments.js file is ready!")
+    assert page.has_content?("Warren Buffet")
+    assert page.has_content?("http://buffet.com/")
+    assert page.has_content?("Dummy Corp")
+    assert page.has_content?("http://www.dummy.com")
+    assert page.has_content?("Seed")
+    assert page.has_content?("Sale")
 
     assert JSON::parse(page.find(".well").text)
 
