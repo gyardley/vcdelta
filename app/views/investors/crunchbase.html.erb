@@ -1,0 +1,9 @@
+<h3>Import information from Crunchbase</h3>
+<p>Get a headstart on your Investments.js file by importing data from Crunchbase. Just paste the URL of your page below.</p>
+<p>Be patient - importing from Crunchbase can take some time.</p>
+<%= simple_form_for :investment, :url => '/investors/import', :html => { :class => 'form-horizontal' } do |investment| %>
+  <div class="well">
+    <%= investment.input :url, :as => :string, :label => "Crunchbase URL", :hint => "e.g. 'http://www.crunchbase.com/financial-organization/neu-venture-capital'", :input_html => { :class => "span5" } %>
+  </div>
+  <%= investment.button :submit, "Import my Crunchbase data", :class => 'btn btn-primary btn-large' %>
+<% end %>

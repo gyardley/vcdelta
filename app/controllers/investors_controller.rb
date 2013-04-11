@@ -80,6 +80,46 @@ class InvestorsController < ApplicationController
 
   end # parse
 
+
+  def crunchbase
+  end
+
+  def import
+
+    if params[:investment][:url].blank?
+      flash.now[:error] = "You'll have to enter a Crunchbase URL."
+      render 'crunchbase'
+    end
+
+    uri = URI::parse(params[:investment][:url])
+
+    if (params[:investment][:url] =~ URI::regexp('http')).nil?
+
+      flash.now[:error] = "We're sorry, but that wasn't a valid URL."
+      render 'crunchbase'
+
+    elsif !uri.host or !uri.host.include? "crunchbase.com"
+
+      flash.now[:error] = "We're sorry, but that wasn't a vaid Crunchbase URL."
+      render 'crunchbase'
+
+    else
+
+      @investor = crunchbase_api(uri.path)
+
+      if @investor.companies.any?
+        @partial = 'investors/import'
+        render 'new'
+      else
+        @partial = 'investors/new'
+        flash[:error] = "We're sorry - we couldn't retrieve any investment information from Crunchbase."
+        render 'new'
+      end
+
+    end
+
+  end
+
   protected
 
   # ghetto error handling - if it's nil something went wrong and I don't much care what
@@ -133,6 +173,60 @@ class InvestorsController < ApplicationController
       data["rounds"].map { |round| company.rounds.new(:name => round["series"], :date => Date.strptime(round["date"], "%m/%Y")) } if data["rounds"]
       data["events"].map { |event| company.events.new(:name => event["event"], :date => Date.strptime(event["date"], "%m/%Y")) } if data["events"]
     }
+
+    investor
+
+  end
+
+  def crunchbase_api(path)
+
+    api_base = 'http://api.crunchbase.com/v/1/'
+    api_key = ENV['CRUNCHBASE_API_KEY']
+
+    crunchbase_url = api_base+path+".js?api_key="+api_key
+
+    response = JSON.parse HTTParty.get(crunchbase_url).response.body
+
+    investor = Investor.new
+    investor.investor = response["name"]
+    investor.url = response["homepage_url"]
+
+    if response["investments"]
+
+      companies = Hash.new { |h,k| h[k] = [] }
+
+      response["investments"].map do |data|
+
+        investment = data["funding_round"]
+
+        # I could make this data structure a bit better
+        companies[investment["company"]["name"]] << {
+          name:       investment["round_code"].capitalize,
+          date:       Date.strptime("#{investment["funded_month"]}/#{investment["funded_year"]}", "%m/%Y"),
+          permalink:  investment["company"]["permalink"]
+        }
+
+      end
+
+      companies.each do |data|
+
+        # need to fetch the damn company URLs from the company pages because they're not in the investor API call
+        crunchbase_company_url = "#{api_base}company/"+data[1][0][:permalink]+".js?api_key=#{api_key}"
+
+        begin
+          company_response = JSON.parse HTTParty.get(crunchbase_company_url).response.body
+          company_url = company_response["homepage_url"]
+        rescue JSON::ParserError # time
+        end
+
+        company = investor.companies.new(:name => data[0], :url => company_url)
+        # company = investor.companies.new(:name => data[0])
+
+        data[1].map { |round| company.rounds.new(:name => round[:name], :date => round[:date]) }
+
+      end
+
+    end
 
     investor
 

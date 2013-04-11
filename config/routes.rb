@@ -10,9 +10,11 @@ InvestmentsJson::Application.routes.draw do
 
   resources :investors, :only => [ :new, :create ] do
     collection do
-      get 'load'
-      post 'parse'
-      get 'edit'
+      get   'load'       # form for existing investment.js file
+      get   'crunchbase' # form for crunchbase data import
+      get   'edit'       # editing imported
+      post  'parse'      # parsing existing investment.js
+      post  'import'     # importing crunchbase data
     end
   end
 
