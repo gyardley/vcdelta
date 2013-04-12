@@ -35,10 +35,10 @@ group :production do
 end
 
 group :test do
-  gem 'factory_girl_rails', '~> 4.0'
   gem 'capybara'
   gem 'capybara-webkit'
   gem 'database_cleaner'
   gem 'launchy'
   gem 'sinatra'
+  gem 'webmock'
 end

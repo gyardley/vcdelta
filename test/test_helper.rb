@@ -4,6 +4,9 @@ require 'rails/test_help'
 require 'capybara/rails'
 require 'json_test_helper.rb'
 
+require 'webmock/test_unit'
+WebMock.allow_net_connect!
+
 server = JsonServer.boot
 JsonServer.base = "http://"+[server.host, server.port].join(':')
 

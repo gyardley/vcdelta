@@ -21,4 +21,10 @@ class JsonServer < Sinatra::Base
     "#{data}"
   end
 
+  get '/v/1/:apicall/:whatever' do
+    file = Rails.root.join('test', 'json', params[:apicall]+'.json')
+    data = file.read
+    "#{data}"
+  end
+
 end
