@@ -1,4 +1,13 @@
 GIT
+  remote: https://github.com/NoamB/sorcery.git
+  revision: bacf0c16b82f85604ee019a45ef7728408f190d1
+  specs:
+    sorcery (0.8.1)
+      bcrypt-ruby (~> 3.0.0)
+      oauth (~> 0.4.4)
+      oauth2 (~> 0.8.0)
+
+GIT
   remote: https://github.com/heroku/rails3_serve_static_assets
   revision: 84910ceb4ca2851d650e66d3b22f5008acf253f8
   specs:
@@ -56,6 +65,7 @@ GEM
       rake
     arel (4.0.0.beta2)
     atomic (1.1.6)
+    bcrypt-ruby (3.0.1)
     bootstrap-sass (2.3.1.0)
       sass (~> 3.2)
     builder (3.1.4)
@@ -83,6 +93,8 @@ GEM
     erubis (2.7.0)
     execjs (1.4.0)
       multi_json (~> 1.0)
+    faraday (0.8.7)
+      multipart-post (~> 1.1)
     ffi (1.6.0)
     figaro (0.6.3)
       bundler (~> 1.0)
@@ -92,6 +104,7 @@ GEM
     httparty (0.10.2)
       multi_json (~> 1.0)
       multi_xml (>= 0.5.2)
+    httpauth (0.2.0)
     i18n (0.6.4)
     jbuilder (1.0.2)
       activesupport (>= 3.0.0)
@@ -102,6 +115,8 @@ GEM
       railties (>= 3.1.0)
       turbolinks
     json (1.7.7)
+    jwt (0.1.8)
+      multi_json (>= 1.5)
     launchy (2.2.0)
       addressable (~> 2.3)
     mail (2.5.3)
@@ -112,7 +127,15 @@ GEM
     minitest (4.7.0)
     multi_json (1.7.2)
     multi_xml (0.5.3)
+    multipart-post (1.2.0)
     nokogiri (1.5.9)
+    oauth (0.4.7)
+    oauth2 (0.8.1)
+      faraday (~> 0.8)
+      httpauth (~> 0.1)
+      jwt (~> 0.1.4)
+      multi_json (~> 1.0)
+      rack (~> 1.2)
     pg (0.15.1)
     polyglot (0.3.3)
     puma (1.6.3)
@@ -213,6 +236,7 @@ DEPENDENCIES
   sass-rails (~> 4.0.0.beta1)
   simple_form!
   sinatra
+  sorcery!
   turbolinks
   uglifier (>= 1.0.3)
   webmock

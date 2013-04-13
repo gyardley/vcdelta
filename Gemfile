@@ -13,6 +13,7 @@ gem 'jquery-rails'
 gem 'jquery-turbolinks'
 gem 'pg'
 gem 'puma'
+gem 'sorcery', :git => 'https://github.com/NoamB/sorcery.git'
 gem 'turbolinks'
 
 gem 'nested_form', :git => 'https://github.com/ryanb/nested_form.git'
