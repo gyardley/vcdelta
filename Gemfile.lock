@@ -28,6 +28,13 @@ GIT
       activemodel (>= 4.0.0.beta, < 4.1)
 
 GIT
+  remote: https://github.com/ryanb/letter_opener
+  revision: 075ebe2b3387dab392fbb0b53daf783e3ddd844b
+  specs:
+    letter_opener (1.1.0)
+      launchy (~> 2.2.0)
+
+GIT
   remote: https://github.com/ryanb/nested_form.git
   revision: a25eebe8205e4e63899873b716535def6c1f5a9d
   specs:
@@ -227,6 +234,7 @@ DEPENDENCIES
   jquery-rails
   jquery-turbolinks
   launchy
+  letter_opener!
   nested_form!
   newrelic_rpm
   pg

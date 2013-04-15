@@ -1,31 +1,10 @@
-<h1>Choose a new password</h1>
-<%= form_for @user, :url => password_reset_path(@user), :html => {:method => :put} do |f| %>
-  <% if @user.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
-
-      <ul>
-      <% @user.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= @user.email %>
+<h3>Choose a new VCDelta.org password</h3>
+<p>Again, there's no SSL certificate here, so don't use the same password as anything important.</p>
+<%= simple_form_for :reset, :url => password_reset_path(@user), :method => :put, :html => {:class => 'form-horizontal' } do |user| %>
+  <div class="well">
+    <%= user.input :password, :hint => "Enter your new password", :input_html => { :class => "span5" } %>
+    <%= user.input :password_confirmation, :label => "Confirm password", :hint => "Please enter your password again", :input_html => { :class => "span5" } %>
+    <%= user.input :token, :as => :hidden, :input_html => { :value => @token } %>
   </div>
-  <div class="field">
-    <%= f.label :password %><br />
-    <%= f.password_field :password %>
-  </div>
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation %>
-    <%= hidden_field_tag :token, @token %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+  <%= user.button :submit, "Change my password", :class => 'btn btn-primary btn-large' %>
 <% end %>

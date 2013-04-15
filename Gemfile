@@ -29,6 +29,7 @@ end
 group :development do
   gem 'quiet_assets', '>= 1.0.1'
   gem 'annotate', '~> 2.5.0'
+  gem 'letter_opener', :git => 'https://github.com/ryanb/letter_opener'
 end
 
 group :production do
