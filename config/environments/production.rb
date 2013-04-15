@@ -77,4 +77,17 @@ InvestmentsJson::Application.configure do
 
   # Use default logging formatter so that PID and timestamp are not suppressed.
   config.log_formatter = ::Logger::Formatter.new
+
+  # Get the default URLs right when using _url in mailer views
+  config.action_mailer.default_url_options = { :host => 'vcdelta.org' }
+  # Get the full path for assets right in production
+  config.action_mailer.asset_host = "vcdelta.org"
+
+  # Mandrill app SMTP settings
+  config.action_mailer.smtp_settings = {
+    :address   => "smtp.mandrillapp.com",
+    :port      => 587,
+    :user_name => ENV["MANDRILL_USER"],
+    :password  => ENV["MANDRILL_API_KEY"]
+  }
 end
