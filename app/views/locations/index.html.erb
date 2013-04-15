@@ -12,7 +12,7 @@
     <% @locations.each do |location| %>
       <tr>
         <td><%= location.name %></td>
-        <td><%= link_to location.url %></td>
+        <td><%= link_to location.url, location.url %></td>
         <td>
           <%= link_to_if(admin?, 'Delete', location_path(location.id), :confirm => "Are you sure?", :method => :delete){} %>
         </td>
