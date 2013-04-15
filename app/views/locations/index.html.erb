@@ -1,0 +1,23 @@
+<h3>Locations of Investment.js files</h3>
+<p>Looking for investment.js data? Here's some places to start.</p>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>URL</th>
+      <th><th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @locations.each do |location| %>
+      <tr>
+        <td><%= location.name %></td>
+        <td><%= link_to location.url %></td>
+        <td>
+          <%= link_to_if(admin?, 'Delete', location_path(location.id), :confirm => "Are you sure?", :method => :delete){} %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= link_to_if(admin?, 'Add a location', new_location_path, :class => "btn btn-primary btn-large"){} %>

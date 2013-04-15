@@ -1,4 +1,15 @@
 <%= link_to "VCDelta.org", root_path, :class => 'brand' %>
 <ul class="nav pull-right">
-  <li><p class="navbar-text visible-desktop">A simple generator for machine-readable VC investment data.</p></li>
+  <% if logged_in? %>
+    <li>
+      <p class="navbar-text visible-desktop"><%= current_user.email %></p>
+    </li>
+    <li>
+      <p class="navbar-text"><%= link_to "Logout", logout_path %></p>
+    </li>
+  <% else %>
+    <li>
+      <p class="navbar-text visible-desktop">A simple generator for machine-readable VC investment data.</p>
+    </li>
+  <% end %>
 </ul>

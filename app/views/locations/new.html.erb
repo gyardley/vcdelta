@@ -1,0 +1,8 @@
+<h3>Create a new investments.js location</h3>
+<%= simple_form_for @location, :html => {:class => 'form-horizontal' } do |location| %>
+  <div class="well">
+    <%= location.input :name, :hint => "The name of the person or institution", :input_html => { :class => "span5" } %>
+    <%= location.input :url, :hint => "The location of the investments.js file", :input_html => { :class => "span5" } %>
+  </div>
+  <%= location.button :submit, "Add this location", :class => 'btn btn-primary btn-large' %>
+<% end %>

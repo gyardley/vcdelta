@@ -1,4 +1,10 @@
 GIT
+  remote: git://github.com/EppO/rolify.git
+  revision: 1a7c1af51962291b43db22f33f707e80b51343ee
+  specs:
+    rolify (3.3.0.rc4)
+
+GIT
   remote: https://github.com/NoamB/sorcery.git
   revision: bacf0c16b82f85604ee019a45ef7728408f190d1
   specs:
@@ -243,6 +249,7 @@ DEPENDENCIES
   rails (= 4.0.0.beta1)
   rails3_serve_static_assets!
   rails_log_stdout!
+  rolify!
   sass-rails (~> 4.0.0.beta1)
   simple_form!
   sinatra

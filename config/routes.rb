@@ -5,7 +5,6 @@ InvestmentsJson::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   root to: 'static#index'
-  resources :sessions
 
   resources :users do
     member do
@@ -13,7 +12,8 @@ InvestmentsJson::Application.routes.draw do
     end
   end
 
-  resources :password_resets
+  resources :sessions, :only => [ :new, :create, :destroy ]
+  resources :password_resets, :only => [ :new, :create, :edit, :update ]
 
   get 'login' => 'sessions#new', :as => :login
   get 'logout' => 'sessions#destroy', :as => :logout
@@ -30,6 +30,8 @@ InvestmentsJson::Application.routes.draw do
       post  'import'     # importing crunchbase data
     end
   end
+
+  resources :locations, :only => [ :index, :new, :create, :destroy ]
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

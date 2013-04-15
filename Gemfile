@@ -14,6 +14,7 @@ gem 'jquery-turbolinks'
 gem 'newrelic_rpm'
 gem 'pg'
 gem 'puma'
+gem 'rolify', :git => "git://github.com/EppO/rolify.git"
 gem 'sorcery', :git => 'https://github.com/NoamB/sorcery.git'
 gem 'turbolinks'
 
