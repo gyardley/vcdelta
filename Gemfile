@@ -34,8 +34,7 @@ group :development do
 end
 
 group :production do
-  gem 'rails_log_stdout', :git => 'https://github.com/heroku/rails_log_stdout'
-  gem 'rails3_serve_static_assets', :git => 'https://github.com/heroku/rails3_serve_static_assets'
+  gem "rails_12factor" # Heroku Rails 4 requirement
 end
 
 group :test do
