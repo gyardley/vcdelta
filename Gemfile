@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 ruby '2.0.0'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.0.0.beta1'
+gem 'rails', '4.0.0'
 
 gem 'bootstrap-sass', '~> 2.3.1.0'
 gem 'figaro'
@@ -22,8 +22,8 @@ gem 'nested_form', :git => 'https://github.com/ryanb/nested_form.git'
 gem 'simple_form', :git => 'https://github.com/plataformatec/simple_form.git'
 
 group :assets do
-  gem 'sass-rails',   '~> 4.0.0.beta1'
-  gem 'coffee-rails', '~> 4.0.0.beta1'
+  gem 'sass-rails',   '~> 4.0.0'
+  gem 'coffee-rails', '~> 4.0.0'
   gem 'uglifier', '>= 1.0.3'
 end
 
@@ -39,8 +39,8 @@ group :production do
 end
 
 group :test do
-  gem 'capybara'
-  gem 'capybara-webkit'
+  gem 'capybara', '~> 2.0.2'
+  gem 'capybara-webkit', '~> 0.14.2'
   gem 'database_cleaner'
   gem 'launchy'
   gem 'sinatra'
